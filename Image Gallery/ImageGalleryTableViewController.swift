@@ -12,8 +12,8 @@ class ImageGalleryTableViewController: UITableViewController {
     
     // MARK: - Model
     
-    var imageGalleries: [ImageGallery] = [ImageGallery(images: nil, name: "Untitled")]
-    var emojiArtDocuments = ["untitled", "Untitled"]
+    var imageGalleries: [ImageGallery] = [ImageGallery(images: nil, name: "Untitled 1")]
+    var deletedImageGalleries: [ImageGallery] = []
     
     // MARK: - Target/Action
 
@@ -21,7 +21,8 @@ class ImageGalleryTableViewController: UITableViewController {
         let galleryName = "Untitled"
         var uniqueNumber = 1
         
-        while imageGalleries.contains(where: { $0.name == ("\(galleryName) \(uniqueNumber)") }) {
+        while imageGalleries.contains(where: { $0.name == ("\(galleryName) \(uniqueNumber)") })
+        || deletedImageGalleries.contains(where: { $0.name == ("\(galleryName) \(uniqueNumber)") }) {
             uniqueNumber += 1
         }
         
@@ -33,31 +34,44 @@ class ImageGalleryTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return imageGalleries.count
+        switch section {
+        case 0:
+            return imageGalleries.count
+        case 1:
+            return deletedImageGalleries.count
+        default:
+            return 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 1:
+            return "Recently Deleted"
+        default:
+            return ""
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ImageGalleryCell", for: indexPath) as? ImageGalleryTableViewCell
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapResponse))
-        tapGesture.numberOfTapsRequired = 2
-        cell?.addGestureRecognizer(tapGesture)
-
-        cell?.textField.text = imageGalleries[indexPath.row].name
-        
-        return cell!
-    }
-    
-    @objc private func doubleTapResponse(sender: UITapGestureRecognizer) {
-        if sender.state == .ended {
-            if let textField = (sender.view as? ImageGalleryTableViewCell)?.textField {
-                textField.isEnabled = true
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ImageGalleryCell", for: indexPath)
+        if let imageGalleryCell = cell as? ImageGalleryTableViewCell {
+            if indexPath.section == 0 {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapResponse))
+                tapGesture.numberOfTapsRequired = 2
+                imageGalleryCell.addGestureRecognizer(tapGesture)
+                imageGalleryCell.textField.text = imageGalleries[indexPath.row].name
+                return cell
+            } else if indexPath.section == 1 {
+                imageGalleryCell.textField.text = deletedImageGalleries[indexPath.row].name
+                return cell
             }
         }
+        return cell
     }
 
     /*
@@ -68,32 +82,35 @@ class ImageGalleryTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+        if indexPath.section == 0, editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+            tableView.performBatchUpdates({
+                let deletedImageGallery = imageGalleries.remove(at: indexPath.row)
+                deletedImageGalleries.append(deletedImageGallery)
+                tableView.moveRow(at: indexPath, to: IndexPath(row: deletedImageGalleries.count-1, section: 1))
+            })
+            
+        }
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if indexPath.section == 1 {
+            let action = UIContextualAction(style: .normal, title: "Undelete", handler: { (thisAction, actionButton, completion) in
+                tableView.performBatchUpdates({
+                    let undeletedImageGallery = self.deletedImageGalleries.remove(at: indexPath.row)
+                    self.imageGalleries.append(undeletedImageGallery)
+                    tableView.moveRow(at: indexPath, to: IndexPath(row: self.imageGalleries.count-1, section: 0))
+                })
+            })
+            return UISwipeActionsConfiguration(actions: [action])
+        }
+        return nil
     }
-    */
+    
 
     /*
     // MARK: - Navigation
@@ -104,5 +121,14 @@ class ImageGalleryTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    //MARK: - Gestures
 
+    @objc private func doubleTapResponse(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            if let textField = (sender.view as? ImageGalleryTableViewCell)?.textField {
+                textField.isEnabled = true
+            }
+        }
+    }
 }

@@ -61,13 +61,13 @@
 			isa = PBXGroup;
 			children = (
 				241427F2200EBB8900CBBB06 /* ImageGalleryTableViewController.swift */,
-				241427E0200EB48A00CBBB06 /* AppDelegate.swift */,
-				241427E4200EB48A00CBBB06 /* Main.storyboard */,
+				241427F4200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift */,
 				241427F6200EC25600CBBB06 /* ImageGallery.swift */,
 				241427F8200EC33100CBBB06 /* Image.swift */,
-				241427F4200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift */,
+				241427E4200EB48A00CBBB06 /* Main.storyboard */,
 				241427E7200EB48A00CBBB06 /* Assets.xcassets */,
 				241427E9200EB48A00CBBB06 /* LaunchScreen.storyboard */,
+				241427E0200EB48A00CBBB06 /* AppDelegate.swift */,
 				241427EC200EB48A00CBBB06 /* Info.plist */,
 			);
 			path = "Image Gallery";
