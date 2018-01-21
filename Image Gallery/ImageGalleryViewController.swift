@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
     
     var imageGallery: [ImageGallery] = [ImageGallery(images: nil, name: "Untitled 1")]
     
@@ -17,6 +17,8 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
         didSet {
             imageGalleryCollectionView.delegate = self
             imageGalleryCollectionView.dataSource = self
+            imageGalleryCollectionView.dragDelegate = self
+            imageGalleryCollectionView.dropDelegate = self
         }
     }
     
@@ -37,10 +39,35 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         
         if let imageCell = cell as? ImageGalleryCollectionViewCell {
-            imageCell.backgroundColor = UIColor.black
-            print(imageGallery[indexPath.item].name!)
+
         }
         return cell
+    }
+    
+    // MARK: - UICollectionViewDragDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return dragItems(at: indexPath)
+    }
+    
+    private func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
+        if let image = (imageGalleryCollectionView.cellForItem(at: indexPath) as? ImageGalleryCollectionViewCell)?.imageView?.image {
+            let dragItem = UIDragItem(itemProvider: NSItemProvider(object: image))
+            dragItem.localObject = image
+            return[dragItem]
+        } else {
+            return []
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
+        return dragItems(at: indexPath)
+    }
+    
+    // MARK: - UICollectionViewDropDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        
     }
 
     /*

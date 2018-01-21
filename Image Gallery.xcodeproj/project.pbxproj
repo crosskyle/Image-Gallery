@@ -15,6 +15,8 @@
 		241427F5200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241427F4200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift */; };
 		241427F7200EC25600CBBB06 /* ImageGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241427F6200EC25600CBBB06 /* ImageGallery.swift */; };
 		241427F9200EC33100CBBB06 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241427F8200EC33100CBBB06 /* Image.swift */; };
+		247BF00E2014138E00CE32C8 /* ImageGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247BF00D2014138E00CE32C8 /* ImageGalleryCollectionViewCell.swift */; };
+		247BF010201417A800CE32C8 /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247BF00F201417A800CE32C8 /* ImageGalleryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		241427F4200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryTableViewCell.swift; sourceTree = "<group>"; };
 		241427F6200EC25600CBBB06 /* ImageGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGallery.swift; sourceTree = "<group>"; };
 		241427F8200EC33100CBBB06 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		247BF00D2014138E00CE32C8 /* ImageGalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		247BF00F201417A800CE32C8 /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 		241427DF200EB48A00CBBB06 /* Image Gallery */ = {
 			isa = PBXGroup;
 			children = (
+				247BF00F201417A800CE32C8 /* ImageGalleryViewController.swift */,
+				247BF00D2014138E00CE32C8 /* ImageGalleryCollectionViewCell.swift */,
 				241427F2200EBB8900CBBB06 /* ImageGalleryTableViewController.swift */,
 				241427F4200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift */,
 				241427F6200EC25600CBBB06 /* ImageGallery.swift */,
@@ -147,9 +153,11 @@
 			files = (
 				241427F7200EC25600CBBB06 /* ImageGallery.swift in Sources */,
 				241427F3200EBB8900CBBB06 /* ImageGalleryTableViewController.swift in Sources */,
+				247BF010201417A800CE32C8 /* ImageGalleryViewController.swift in Sources */,
 				241427E1200EB48A00CBBB06 /* AppDelegate.swift in Sources */,
 				241427F5200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift in Sources */,
 				241427F9200EC33100CBBB06 /* Image.swift in Sources */,
+				247BF00E2014138E00CE32C8 /* ImageGalleryCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
