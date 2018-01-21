@@ -10,6 +10,7 @@ import UIKit
 
 class ImageGalleryTableViewController: UITableViewController {
     
+    
     // MARK: - Model
     
     var imageGalleries: [ImageGallery] = [ImageGallery(images: nil, name: "Untitled 1")]
@@ -111,6 +112,7 @@ class ImageGalleryTableViewController: UITableViewController {
         return nil
     }
     
+ 
 
     /*
     // MARK: - Navigation
