@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import UIKit
 
 struct Image {
     var url: URL?
-    var aspectRatio: Double?
+    var aspectRatio: CGFloat?
 }
