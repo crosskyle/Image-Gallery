@@ -10,7 +10,7 @@ import UIKit
 
 class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
     
-    var imageGallery: [ImageGallery] = [ImageGallery(images: nil, name: "Untitled 1")]
+    var imageGallery: [ImageGallery] = [ImageGallery(images: nil, name: "Untitled 1"), ImageGallery(images: nil, name: "Untitled 1"), ImageGallery(images: nil, name: "Untitled 1")]
     
     
     @IBOutlet weak var imageGalleryCollectionView: UICollectionView! {
@@ -47,6 +47,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: - UICollectionViewDragDelegate
     
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        session.localContext = collectionView
         return dragItems(at: indexPath)
     }
     
@@ -66,8 +67,28 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     
     // MARK: - UICollectionViewDropDelegate
     
+    func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
+        return session.canLoadObjects(ofClass: UIImage.self)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        let isSelf = (session.localDragSession?.localContext as? UICollectionView) == collectionView
+        return UICollectionViewDropProposal(operation: isSelf ? .move : .copy, intent: .insertAtDestinationIndexPath)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
-        
+        let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
+        for item in coordinator.items {
+            if let sourceIndexPath = item.sourceIndexPath {
+                collectionView.performBatchUpdates({
+                    let draggedImage = imageGallery.remove(at: sourceIndexPath.item)
+                    imageGallery.insert(draggedImage, at: destinationIndexPath.item)
+                    collectionView.deleteItems(at: [sourceIndexPath])
+                    collectionView.insertItems(at: [destinationIndexPath])
+                })
+                coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
+            }
+        }
     }
 
     /*
