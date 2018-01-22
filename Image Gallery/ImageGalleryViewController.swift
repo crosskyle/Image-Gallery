@@ -8,19 +8,41 @@
 
 import UIKit
 
-class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate, UICollectionViewDelegateFlowLayout {
     
     var images: [Image] = []
     
-    @IBOutlet weak var imageGalleryCollectionView: UICollectionView! {
+    @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
-            imageGalleryCollectionView.delegate = self
-            imageGalleryCollectionView.dataSource = self
-            imageGalleryCollectionView.dragDelegate = self
-            imageGalleryCollectionView.dropDelegate = self
+            collectionView.delegate = self
+            collectionView.dataSource = self
+            collectionView.dragDelegate = self
+            collectionView.dropDelegate = self
+            
+            collectionView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(scaleCollectionViewCells(with:))))
         }
     }
     
+    private var scaleForCollectionViewCell: CGFloat = 1.0
+    
+    @objc func scaleCollectionViewCells(with recognizer: UIPinchGestureRecognizer) {
+        switch recognizer.state {
+        case .changed, .ended:
+            scaleForCollectionViewCell *= recognizer.scale
+            recognizer.scale = 1
+            collectionView.collectionViewLayout.invalidateLayout()
+        default:
+            break
+        }
+    }
+    
+    // MARK: - UICollectionViewDelegateFlowLayout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let aspectRatio = images[indexPath.item].aspectRatio ?? 1
+        let cellHeigth: CGFloat = 200 * scaleForCollectionViewCell / aspectRatio
+        return CGSize(width: 200 * scaleForCollectionViewCell, height: cellHeigth)
+    }
     
     // MARK: - UICollectionViewDataSource
     
@@ -51,9 +73,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
             let urlContents = try? Data(contentsOf: url)
             DispatchQueue.main.async {
                 if let imageData = urlContents {
-                    let image = UIImage(data: imageData)
-                    let resizedImage = image?.resize(maxWidthHeight: 1.3)
-                    imageCell.imageView.image = resizedImage
+                    imageCell.imageView.image = UIImage(data: imageData)
 
                 }
             }
@@ -68,7 +88,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     private func dragItems(at indexPath: IndexPath) -> [UIDragItem] {
-        if let image = (imageGalleryCollectionView.cellForItem(at: indexPath) as? ImageGalleryCollectionViewCell)?.imageView?.image {
+        if let image = (collectionView.cellForItem(at: indexPath) as? ImageGalleryCollectionViewCell)?.imageView?.image {
             let dragItem = UIDragItem(itemProvider: NSItemProvider(object: image))
             dragItem.localObject = image
             return[dragItem]
@@ -84,7 +104,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: - UICollectionViewDropDelegate
     
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
-        return session.canLoadObjects(ofClass: UIImage.self) && session.canLoadObjects(ofClass: NSURL.self)
+        return session.canLoadObjects(ofClass: UIImage.self)
     }
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
@@ -144,33 +164,4 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     
 }
 
-extension UIImage {
-    
-    func resize(maxWidthHeight : Double)-> UIImage? {
-        
-        let actualHeight = Double(size.height)
-        let actualWidth = Double(size.width)
-        var maxWidth = 0.0
-        var maxHeight = 0.0
-        
-        if actualWidth > actualHeight {
-            maxWidth = maxWidthHeight
-            let per = (100.0 * maxWidthHeight / actualWidth)
-            maxHeight = (actualHeight * per) / 100.0
-        }else{
-            maxHeight = maxWidthHeight
-            let per = (100.0 * maxWidthHeight / actualHeight)
-            maxWidth = (actualWidth * per) / 100.0
-        }
-        
-        let hasAlpha = true
-        let scale: CGFloat = 0.0
-        
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: maxWidth, height: maxHeight), !hasAlpha, scale)
-        self.draw(in: CGRect(origin: .zero, size: CGSize(width: maxWidth, height: maxHeight)))
-        
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        return scaledImage
-    }
-}
 

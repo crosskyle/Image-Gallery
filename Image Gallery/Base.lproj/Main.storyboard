@@ -6,8 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -37,18 +35,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gGc-Af-1Mm">
-                                                    <rect key="frame" x="8" y="33.5" width="114" height="63"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="gGc-Af-1Mm" secondAttribute="height" multiplier="184:101" id="kgw-al-ssn"/>
-                                                    </constraints>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gGc-Af-1Mm">
+                                                    <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="gGc-Af-1Mm" firstAttribute="leading" secondItem="mUq-4t-deK" secondAttribute="leadingMargin" id="0i2-DK-oQg"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="gGc-Af-1Mm" secondAttribute="trailing" id="Njw-ng-EJY"/>
-                                            <constraint firstItem="gGc-Af-1Mm" firstAttribute="centerY" secondItem="mUq-4t-deK" secondAttribute="centerY" id="vV3-mu-x0L"/>
+                                            <constraint firstItem="gGc-Af-1Mm" firstAttribute="top" secondItem="mUq-4t-deK" secondAttribute="top" id="EQI-v2-dgF"/>
+                                            <constraint firstAttribute="bottom" secondItem="gGc-Af-1Mm" secondAttribute="bottom" id="IqX-J6-wYT"/>
+                                            <constraint firstAttribute="trailing" secondItem="gGc-Af-1Mm" secondAttribute="trailing" id="QLw-FO-kge"/>
+                                            <constraint firstItem="gGc-Af-1Mm" firstAttribute="leading" secondItem="mUq-4t-deK" secondAttribute="leading" id="nEM-xH-Bzb"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="gGc-Af-1Mm" id="8yG-e4-853"/>
@@ -84,7 +81,7 @@
                         <viewLayoutGuide key="safeArea" id="pO7-cc-Ly7"/>
                     </view>
                     <connections>
-                        <outlet property="imageGalleryCollectionView" destination="Zio-JV-n8T" id="ztj-1W-cFd"/>
+                        <outlet property="collectionView" destination="Zio-JV-n8T" id="ztj-1W-cFd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A38-3P-Ieh" userLabel="First Responder" sceneMemberID="firstResponder"/>
