@@ -37,7 +37,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ad" translatesAutoresizingMaskIntoConstraints="NO" id="gGc-Af-1Mm">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gGc-Af-1Mm">
                                                     <rect key="frame" x="8" y="33.5" width="114" height="63"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="gGc-Af-1Mm" secondAttribute="height" multiplier="184:101" id="kgw-al-ssn"/>
@@ -54,23 +54,21 @@
                                             <outlet property="imageView" destination="gGc-Af-1Mm" id="8yG-e4-853"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlaceholderCell" id="cDZ-99-SXv">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DropPlaceholderCell" id="cDZ-99-SXv">
                                         <rect key="frame" x="143.5" y="0.0" width="130" height="130"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hdh-vQ-51N">
-                                                    <rect key="frame" x="28" y="28" width="74" height="74"/>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hdh-vQ-51N">
+                                                    <rect key="frame" x="55" y="55" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="hdh-vQ-51N" firstAttribute="top" secondItem="cDZ-99-SXv" secondAttribute="topMargin" constant="20" id="81U-FN-VBw"/>
-                                            <constraint firstItem="hdh-vQ-51N" firstAttribute="leading" secondItem="cDZ-99-SXv" secondAttribute="leadingMargin" constant="20" id="fd2-cg-7QA"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="hdh-vQ-51N" secondAttribute="bottom" constant="20" id="lL9-WY-d4q"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="hdh-vQ-51N" secondAttribute="trailing" constant="20" id="lSl-9k-bdH"/>
+                                            <constraint firstItem="hdh-vQ-51N" firstAttribute="centerX" secondItem="cDZ-99-SXv" secondAttribute="centerX" id="bvq-4f-dnQ"/>
+                                            <constraint firstItem="hdh-vQ-51N" firstAttribute="centerY" secondItem="cDZ-99-SXv" secondAttribute="centerY" id="o3T-RB-hXq"/>
                                         </constraints>
                                     </collectionViewCell>
                                 </cells>
@@ -173,7 +171,4 @@
             <point key="canvasLocation" x="-1241" y="139"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="ad" width="100" height="70"/>
-    </resources>
 </document>

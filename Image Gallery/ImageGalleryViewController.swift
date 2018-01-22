@@ -8,10 +8,9 @@
 
 import UIKit
 
-class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
+class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate {
     
-    var imageGallery: [ImageGallery] = [ImageGallery(images: nil, name: "Untitled 1"), ImageGallery(images: nil, name: "Untitled 1"), ImageGallery(images: nil, name: "Untitled 1")]
-    
+    var images: [Image] = []
     
     @IBOutlet weak var imageGalleryCollectionView: UICollectionView! {
         didSet {
@@ -30,18 +29,31 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageGallery.count
+        return images.count
     }
     
     private let reuseIdentifier = "ImageCell"
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        
-        if let imageCell = cell as? ImageGalleryCollectionViewCell {
 
+        if let imageCell = cell as? ImageGalleryCollectionViewCell {
+            if let imageUrl = images[indexPath.item].url {
+                fetchImage(imageCell: imageCell, url: imageUrl)
+            }
         }
         return cell
+    }
+    
+    private func fetchImage(imageCell: ImageGalleryCollectionViewCell, url: URL)  {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let urlContents = try? Data(contentsOf: url)
+            DispatchQueue.main.async {
+                if let imageData = urlContents {
+                    imageCell.imageView.image = UIImage(data: imageData)
+                }
+            }
+        }
     }
     
     // MARK: - UICollectionViewDragDelegate
@@ -81,12 +93,28 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
         for item in coordinator.items {
             if let sourceIndexPath = item.sourceIndexPath {
                 collectionView.performBatchUpdates({
-                    let draggedImage = imageGallery.remove(at: sourceIndexPath.item)
-                    imageGallery.insert(draggedImage, at: destinationIndexPath.item)
+                    let draggedImage = images.remove(at: sourceIndexPath.item)
+                    images.insert(draggedImage, at: destinationIndexPath.item)
                     collectionView.deleteItems(at: [sourceIndexPath])
                     collectionView.insertItems(at: [destinationIndexPath])
                 })
                 coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
+            } else {
+                let placeholderContext = coordinator.drop(
+                    item.dragItem,
+                    to: UICollectionViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: "DropPlaceholderCell")
+                )
+                item.dragItem.itemProvider.loadObject(ofClass: NSURL.self) { (provider, error) in
+                    DispatchQueue.main.async {
+                        if let url = provider as? URL {
+                            placeholderContext.commitInsertion(dataSourceUpdates: { insertionIndexPath in
+                                self.images.insert(Image(url: url.imageURL, aspectRatio: 10.0), at: insertionIndexPath.item)
+                            })
+                        } else {
+                            placeholderContext.deletePlaceholder()
+                        }
+                    }
+                }
             }
         }
     }
