@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageGalleryTableViewController: UITableViewController {
+class ImageGalleryTableViewController: UITableViewController, UISplitViewControllerDelegate {
     
     
     // MARK: - Model
@@ -29,6 +29,16 @@ class ImageGalleryTableViewController: UITableViewController {
         
         imageGalleries += [ImageGallery(images: nil, name: ("\(galleryName) \(uniqueNumber)"))]
         tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        let indexPath = IndexPath(row: 0, section: 0)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition(rawValue: 0)!)
+        splitViewController?.delegate = self
+    
+        if let vc = splitViewController?.viewControllers[1] as? ImageGalleryViewController {
+            vc.imageGallery = imageGalleries[0]
+        }
     }
     
     

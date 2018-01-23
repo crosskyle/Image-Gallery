@@ -10,6 +10,8 @@ import UIKit
 
 class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate, UICollectionViewDelegateFlowLayout {
     
+    var imageGallery: ImageGallery?
+    
     var images: [Image] = []
     
     @IBOutlet weak var collectionView: UICollectionView! {
@@ -18,7 +20,6 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
             collectionView.dataSource = self
             collectionView.dragDelegate = self
             collectionView.dropDelegate = self
-            
             collectionView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(scaleCollectionViewCells(with:))))
         }
     }
@@ -40,8 +41,8 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let aspectRatio = images[indexPath.item].aspectRatio ?? 1
-        let cellHeigth: CGFloat = 200 * scaleForCollectionViewCell / aspectRatio
-        return CGSize(width: 200 * scaleForCollectionViewCell, height: cellHeigth)
+        let cellHeight: CGFloat = 200 * scaleForCollectionViewCell / aspectRatio
+        return CGSize(width: 200 * scaleForCollectionViewCell, height: cellHeight)
     }
     
     // MARK: - UICollectionViewDataSource
