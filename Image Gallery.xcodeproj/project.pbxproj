@@ -14,7 +14,6 @@
 		241427F3200EBB8900CBBB06 /* ImageGalleryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241427F2200EBB8900CBBB06 /* ImageGalleryTableViewController.swift */; };
 		241427F5200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241427F4200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift */; };
 		241427F7200EC25600CBBB06 /* ImageGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241427F6200EC25600CBBB06 /* ImageGallery.swift */; };
-		241427F9200EC33100CBBB06 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241427F8200EC33100CBBB06 /* Image.swift */; };
 		247BF00E2014138E00CE32C8 /* ImageGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247BF00D2014138E00CE32C8 /* ImageGalleryCollectionViewCell.swift */; };
 		247BF010201417A800CE32C8 /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247BF00F201417A800CE32C8 /* ImageGalleryViewController.swift */; };
 		247BF0122015929400CE32C8 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247BF0112015929400CE32C8 /* Utilities.swift */; };
@@ -30,7 +29,6 @@
 		241427F2200EBB8900CBBB06 /* ImageGalleryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryTableViewController.swift; sourceTree = "<group>"; };
 		241427F4200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryTableViewCell.swift; sourceTree = "<group>"; };
 		241427F6200EC25600CBBB06 /* ImageGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGallery.swift; sourceTree = "<group>"; };
-		241427F8200EC33100CBBB06 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		247BF00D2014138E00CE32C8 /* ImageGalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		247BF00F201417A800CE32C8 /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
 		247BF0112015929400CE32C8 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -71,7 +69,6 @@
 				241427F2200EBB8900CBBB06 /* ImageGalleryTableViewController.swift */,
 				241427F4200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift */,
 				241427F6200EC25600CBBB06 /* ImageGallery.swift */,
-				241427F8200EC33100CBBB06 /* Image.swift */,
 				241427E4200EB48A00CBBB06 /* Main.storyboard */,
 				247BF0112015929400CE32C8 /* Utilities.swift */,
 				241427E7200EB48A00CBBB06 /* Assets.xcassets */,
@@ -159,7 +156,6 @@
 				247BF010201417A800CE32C8 /* ImageGalleryViewController.swift in Sources */,
 				241427E1200EB48A00CBBB06 /* AppDelegate.swift in Sources */,
 				241427F5200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift in Sources */,
-				241427F9200EC33100CBBB06 /* Image.swift in Sources */,
 				247BF0122015929400CE32C8 /* Utilities.swift in Sources */,
 				247BF00E2014138E00CE32C8 /* ImageGalleryCollectionViewCell.swift in Sources */,
 			);

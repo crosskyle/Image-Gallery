@@ -7,10 +7,16 @@
 //
 
 import Foundation
+import UIKit
 
 class ImageGallery {
     var images: [Image] = []
     var name: String = "Untitled 1"
+    
+    struct Image {
+        var url: URL?
+        var aspectRatio: CGFloat?
+    }
     
     init(name: String) {
         self.name = name

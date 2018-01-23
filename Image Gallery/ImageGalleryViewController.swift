@@ -10,7 +10,7 @@ import UIKit
 
 class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate, UICollectionViewDelegateFlowLayout {
     
-    weak var imageGallery: ImageGallery?
+    var imageGallery: ImageGallery?
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -134,7 +134,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
                     to: UICollectionViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: "DropPlaceholderCell")
                 )
                 
-                var image = Image()
+                var image = ImageGallery.Image()
                 
                 item.dragItem.itemProvider.loadObject(ofClass: UIImage.self) { (provider, error) in
                     if let loadedImage = provider as? UIImage {
