@@ -8,7 +8,11 @@
 
 import Foundation
 
-struct ImageGallery {
-    var images: [Image]?
-    var name: String?
+class ImageGallery {
+    var images: [Image] = []
+    var name: String = "Untitled 1"
+    
+    init(name: String) {
+        self.name = name
+    }
 }

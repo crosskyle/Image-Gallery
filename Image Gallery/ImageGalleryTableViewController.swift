@@ -13,7 +13,7 @@ class ImageGalleryTableViewController: UITableViewController, UISplitViewControl
     
     // MARK: - Model
     
-    var imageGalleries: [ImageGallery] = [ImageGallery(images: nil, name: "Untitled 1")]
+    var imageGalleries: [ImageGallery] = [ImageGallery(name: "Untitled 1")]
     var deletedImageGalleries: [ImageGallery] = []
     
     // MARK: - Target/Action
@@ -27,9 +27,11 @@ class ImageGalleryTableViewController: UITableViewController, UISplitViewControl
             uniqueNumber += 1
         }
         
-        imageGalleries += [ImageGallery(images: nil, name: ("\(galleryName) \(uniqueNumber)"))]
+        imageGalleries += [ImageGallery(name: ("\(galleryName) \(uniqueNumber)"))]
         tableView.reloadData()
     }
+    
+    // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         let indexPath = IndexPath(row: 0, section: 0)
@@ -42,7 +44,7 @@ class ImageGalleryTableViewController: UITableViewController, UISplitViewControl
     }
     
     
-    // MARK: - Table view data source
+    // MARK: - UITableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -85,20 +87,16 @@ class ImageGalleryTableViewController: UITableViewController, UISplitViewControl
         return cell
     }
 
-    /*
+
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if indexPath.section == 0, editingStyle == .delete {
-            // Delete the row from the data source
-
             tableView.performBatchUpdates({
                 let deletedImageGallery = imageGalleries.remove(at: indexPath.row)
                 deletedImageGalleries.append(deletedImageGallery)
@@ -122,17 +120,32 @@ class ImageGalleryTableViewController: UITableViewController, UISplitViewControl
         return nil
     }
     
- 
-
-    /*
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    private var indexPathRowForSegue: Int?
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+            if indexPath.section == 0 {
+                indexPathRowForSegue = indexPath.row
+                return true
+            }
+        }
+        return false
     }
-    */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showGallery" {
+            if let vc = segue.destination as? ImageGalleryViewController {
+                let index = indexPathRowForSegue ?? 0
+                vc.imageGallery = imageGalleries[index]
+            }
+            indexPathRowForSegue = nil
+        }
+       
+    }
+    
     
     //MARK: - Gestures
 

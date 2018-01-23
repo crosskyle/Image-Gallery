@@ -86,7 +86,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A38-3P-Ieh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-469.33593749999994" y="460.9375"/>
+            <point key="canvasLocation" x="-469" y="558"/>
         </scene>
         <!--Image Gallery Table View Controller-->
         <scene sceneID="6Km-Mv-elV">
@@ -117,6 +117,7 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="textField" destination="IB1-RH-8pm" id="ddf-4K-Bey"/>
+                                    <segue destination="KbY-un-WRQ" kind="showDetail" identifier="showGallery" id="VTD-SQ-HcV"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -168,4 +169,7 @@
             <point key="canvasLocation" x="-1241" y="139"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="VTD-SQ-HcV"/>
+    </inferredMetricsTieBreakers>
 </document>

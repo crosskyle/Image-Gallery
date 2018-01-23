@@ -10,9 +10,7 @@ import UIKit
 
 class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDragDelegate, UICollectionViewDropDelegate, UICollectionViewDelegateFlowLayout {
     
-    var imageGallery: ImageGallery?
-    
-    var images: [Image] = []
+    weak var imageGallery: ImageGallery?
     
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -40,7 +38,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let aspectRatio = images[indexPath.item].aspectRatio ?? 1
+        let aspectRatio = imageGallery?.images[indexPath.item].aspectRatio ?? 1
         let cellHeight: CGFloat = 200 * scaleForCollectionViewCell / aspectRatio
         return CGSize(width: 200 * scaleForCollectionViewCell, height: cellHeight)
     }
@@ -52,7 +50,12 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        if let imageGallery = imageGallery {
+            return imageGallery.images.count
+        } else {
+            return 0
+        }
+        
     }
     
     private let reuseIdentifier = "ImageCell"
@@ -61,7 +64,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
 
         if let imageCell = cell as? ImageGalleryCollectionViewCell {
-            if let imageUrl = images[indexPath.item].url {
+            if let imageUrl = imageGallery?.images[indexPath.item].url {
                 fetchImage(imageCell: imageCell, url: imageUrl)
                 
             }
@@ -118,10 +121,11 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
         for item in coordinator.items {
             if let sourceIndexPath = item.sourceIndexPath {
                 collectionView.performBatchUpdates({
-                    let draggedImage = images.remove(at: sourceIndexPath.item)
-                    images.insert(draggedImage, at: destinationIndexPath.item)
-                    collectionView.deleteItems(at: [sourceIndexPath])
-                    collectionView.insertItems(at: [destinationIndexPath])
+                    if let draggedImage = imageGallery?.images.remove(at: sourceIndexPath.item) {
+                        imageGallery?.images.insert(draggedImage, at: destinationIndexPath.item)
+                        collectionView.deleteItems(at: [sourceIndexPath])
+                        collectionView.insertItems(at: [destinationIndexPath])
+                    }
                 })
                 coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
             } else {
@@ -144,7 +148,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
                     }
                     DispatchQueue.main.async {
                         placeholderContext.commitInsertion(dataSourceUpdates: { insertionIndexPath in
-                            self?.images.insert(image, at: insertionIndexPath.item)
+                            self?.imageGallery?.images.insert(image, at: insertionIndexPath.item)
                         })
                     }
                 }
