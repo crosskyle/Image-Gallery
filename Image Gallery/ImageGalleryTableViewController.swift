@@ -37,8 +37,8 @@ class ImageGalleryTableViewController: UITableViewController, UISplitViewControl
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition(rawValue: 0)!)
         splitViewController?.delegate = self
-    
-        if let vc = splitViewController?.viewControllers[1] as? ImageGalleryViewController {
+        
+        if let vc = splitViewController?.viewControllers[1].contents as? ImageGalleryViewController  {
             vc.imageGallery = imageGalleries[0]
         }
     }
@@ -137,7 +137,7 @@ class ImageGalleryTableViewController: UITableViewController, UISplitViewControl
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showGallery" {
-            if let vc = segue.destination as? ImageGalleryViewController {
+            if let vc = segue.destination.contents as? ImageGalleryViewController {
                 let index = indexPathRowForSegue ?? 0
                 vc.imageGallery = imageGalleries[index]
             }

@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Zio-JV-n8T">
-                                <rect key="frame" x="0.0" y="20" width="703.5" height="748"/>
+                                <rect key="frame" x="0.0" y="64" width="703.5" height="704"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GtV-9g-2Fp">
                                     <size key="itemSize" width="130" height="130"/>
@@ -49,6 +49,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="gGc-Af-1Mm" id="8yG-e4-853"/>
+                                            <segue destination="f5h-3k-uNB" kind="show" id="UWC-IG-jjG"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DropPlaceholderCell" id="cDZ-99-SXv">
@@ -80,13 +81,29 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pO7-cc-Ly7"/>
                     </view>
+                    <navigationItem key="navigationItem" id="4zY-ZC-uTj"/>
                     <connections>
                         <outlet property="collectionView" destination="Zio-JV-n8T" id="ztj-1W-cFd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A38-3P-Ieh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-469" y="558"/>
+            <point key="canvasLocation" x="227" y="558"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ZJd-xU-Dgu">
+            <objects>
+                <viewController id="f5h-3k-uNB" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="trE-m9-xF9">
+                        <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="wsd-EZ-N2l"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GOx-pt-Isi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="942" y="558"/>
         </scene>
         <!--Image Gallery Table View Controller-->
         <scene sceneID="6Km-Mv-elV">
@@ -117,7 +134,7 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="textField" destination="IB1-RH-8pm" id="ddf-4K-Bey"/>
-                                    <segue destination="KbY-un-WRQ" kind="showDetail" identifier="showGallery" id="VTD-SQ-HcV"/>
+                                    <segue destination="SvV-aO-mOs" kind="showDetail" identifier="showGallery" id="VTD-SQ-HcV"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -161,15 +178,33 @@
                 <splitViewController id="gqo-1z-aPj" sceneMemberID="viewController">
                     <connections>
                         <segue destination="0tr-wX-rwI" kind="relationship" relationship="masterViewController" id="FWi-YI-Rqg"/>
-                        <segue destination="KbY-un-WRQ" kind="relationship" relationship="detailViewController" id="XuC-iS-oBc"/>
+                        <segue destination="SvV-aO-mOs" kind="relationship" relationship="detailViewController" id="XuC-iS-oBc"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kzv-Um-lV0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1241" y="139"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ev2-zv-tHj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SvV-aO-mOs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZEI-lU-QVg">
+                        <rect key="frame" x="0.0" y="20" width="703.5" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="KbY-un-WRQ" kind="relationship" relationship="rootViewController" id="cTG-4k-6qk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ghu-Ti-UhN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-469.33593749999994" y="557.8125"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="VTD-SQ-HcV"/>
+        <segue reference="XuC-iS-oBc"/>
     </inferredMetricsTieBreakers>
 </document>
