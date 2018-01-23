@@ -90,20 +90,40 @@
             </objects>
             <point key="canvasLocation" x="227" y="558"/>
         </scene>
-        <!--View Controller-->
+        <!--Image View Controller-->
         <scene sceneID="ZJd-xU-Dgu">
             <objects>
-                <viewController id="f5h-3k-uNB" sceneMemberID="viewController">
+                <viewController id="f5h-3k-uNB" customClass="ImageViewController" customModule="Image_Gallery" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="trE-m9-xF9">
                         <rect key="frame" x="0.0" y="0.0" width="703.5" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zt0-iY-KAC">
+                                <rect key="frame" x="0.0" y="64" width="704" height="704"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" priority="250" constant="704" id="O3G-2L-0AD"/>
+                                    <constraint firstAttribute="height" priority="250" constant="704" id="gxC-K2-B0m"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zt0-iY-KAC" firstAttribute="width" secondItem="trE-m9-xF9" secondAttribute="width" id="2vg-fy-Qc3"/>
+                            <constraint firstItem="zt0-iY-KAC" firstAttribute="height" secondItem="wsd-EZ-N2l" secondAttribute="height" id="AHJ-cL-0Vj"/>
+                            <constraint firstItem="zt0-iY-KAC" firstAttribute="centerX" secondItem="wsd-EZ-N2l" secondAttribute="centerX" id="IqW-uh-hE0"/>
+                            <constraint firstItem="zt0-iY-KAC" firstAttribute="centerY" secondItem="wsd-EZ-N2l" secondAttribute="centerY" id="N3H-3a-Cqv"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="wsd-EZ-N2l"/>
                     </view>
+                    <connections>
+                        <outlet property="scrollView" destination="zt0-iY-KAC" id="22f-em-V2G"/>
+                        <outlet property="scrollViewHeight" destination="gxC-K2-B0m" id="buw-Bc-07X"/>
+                        <outlet property="scrollViewWidth" destination="O3G-2L-0AD" id="MJu-L3-aVU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GOx-pt-Isi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="942" y="558"/>
+            <point key="canvasLocation" x="941.60156249999989" y="557.8125"/>
         </scene>
         <!--Image Gallery Table View Controller-->
         <scene sceneID="6Km-Mv-elV">
