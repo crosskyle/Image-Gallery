@@ -141,20 +141,20 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Untitled" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IB1-RH-8pm">
+                                        <textField opaque="NO" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Untitled" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="IB1-RH-8pm">
                                             <rect key="frame" x="16" y="13.5" width="288" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <gestureRecognizers/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                         </textField>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="textField" destination="IB1-RH-8pm" id="ddf-4K-Bey"/>
-                                    <segue destination="SvV-aO-mOs" kind="showDetail" identifier="showGallery" id="VTD-SQ-HcV"/>
+                                    <segue destination="SvV-aO-mOs" kind="showDetail" identifier="showGallery" id="796-cG-BIQ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -171,6 +171,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="i8E-nM-h2c" id="rZx-KQ-nf2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QAf-fl-pdU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -179,7 +182,7 @@
         <!--Navigation Controller-->
         <scene sceneID="uQq-Y4-i6B">
             <objects>
-                <navigationController id="0tr-wX-rwI" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0tr-wX-rwI" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TEt-o7-Urx">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -225,6 +228,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="XuC-iS-oBc"/>
+        <segue reference="796-cG-BIQ"/>
     </inferredMetricsTieBreakers>
 </document>

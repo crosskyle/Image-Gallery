@@ -8,14 +8,34 @@
 
 import UIKit
 
-class ImageGalleryTableViewCell: UITableViewCell {
+class ImageGalleryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textField: UITextField! {
+        didSet {
+            textField.delegate = self
+            textField.clearsOnBeginEditing = false
+            textField.isUserInteractionEnabled = false
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTapResponse))
+            tapGestureRecognizer.numberOfTapsRequired = 2
+            self.addGestureRecognizer(tapGestureRecognizer)
+        }
+    }
+    
+    @objc private func doubleTapResponse(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            textField.isUserInteractionEnabled = true
+            textField.becomeFirstResponder()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        textField.isUserInteractionEnabled = false
+        return true
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

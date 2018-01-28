@@ -66,8 +66,8 @@
 		241427DF200EB48A00CBBB06 /* Image Gallery */ = {
 			isa = PBXGroup;
 			children = (
-				247BF00F201417A800CE32C8 /* ImageGalleryViewController.swift */,
 				24852AE62017EE960035661E /* ImageViewController.swift */,
+				247BF00F201417A800CE32C8 /* ImageGalleryViewController.swift */,
 				247BF00D2014138E00CE32C8 /* ImageGalleryCollectionViewCell.swift */,
 				241427F2200EBB8900CBBB06 /* ImageGalleryTableViewController.swift */,
 				241427F4200EBD1200CBBB06 /* ImageGalleryTableViewCell.swift */,
