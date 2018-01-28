@@ -109,7 +109,7 @@ extension ImageGalleryTableViewController: UITableViewDataSource {
         case 1:
             return "Recently Deleted"
         default:
-            return ""
+            return nil
         }
     }
     
@@ -165,6 +165,7 @@ extension ImageGalleryTableViewController: UITableViewDelegate {
                     let undeletedImageGallery = self.deletedImageGalleries.remove(at: indexPath.row)
                     self.imageGalleries.append(undeletedImageGallery)
                     tableView.moveRow(at: indexPath, to: IndexPath(row: self.imageGalleries.count-1, section: 0))
+                    tableView.reloadData()
                 })
             })
             return UISwipeActionsConfiguration(actions: [action])
