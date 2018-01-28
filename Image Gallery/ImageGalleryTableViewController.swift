@@ -14,7 +14,7 @@ class ImageGalleryTableViewController: UIViewController {
     
     var imageGalleries: [ImageGallery] = [ImageGallery(name: "Untitled 1")]
     var deletedImageGalleries: [ImageGallery] = []
-    
+
     
     // MARK: - Target/Action
 
@@ -118,6 +118,7 @@ extension ImageGalleryTableViewController: UITableViewDataSource {
         if let imageGalleryCell = cell as? ImageGalleryTableViewCell {
             if indexPath.section == 0 {
                 imageGalleryCell.textField.text = imageGalleries[indexPath.row].name
+                imageGalleryCell.delegate = self
                 return cell
             } else if indexPath.section == 1 {
                 imageGalleryCell.textField.text = deletedImageGalleries[indexPath.row].name
@@ -172,4 +173,15 @@ extension ImageGalleryTableViewController: UITableViewDelegate {
         }
         return nil
     }
+}
+
+
+// MARK: EditTextDelegate
+
+extension ImageGalleryTableViewController: EditTextDelegate {
+    func textFieldDidChange(at index: Int, to name: String) {
+        imageGalleries[index].name = name
+    }
+    
+    
 }

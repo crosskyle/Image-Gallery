@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol EditTextDelegate {
+    func textFieldDidChange(at index: Int, to name: String)
+}
+
 class ImageGalleryTableViewCell: UITableViewCell, UITextFieldDelegate {
+    
+    var delegate: ImageGalleryTableViewController?
 
     @IBOutlet weak var textField: UITextField! {
         didSet {
@@ -33,9 +39,16 @@ class ImageGalleryTableViewCell: UITableViewCell, UITextFieldDelegate {
         textField.isUserInteractionEnabled = false
         return true
     }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let tableView = self.superview as? UITableView {
+            if let indexPath = tableView.indexPath(for: self) {
+                delegate?.textFieldDidChange(at: indexPath.row, to: self.textField.text ?? "")
+            }
+        }
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
 }
